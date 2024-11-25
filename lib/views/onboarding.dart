@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:imove/utiils/utils.dart';
+import 'package:imove/views/login.dart';
 import 'package:imove/views/widgets/logo.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -64,11 +65,18 @@ class OnboardingScreen extends StatelessWidget {
                             .copyWith(color: Colors.white),
                       ),
                       Gap(4.w),
-                      Text(
-                        "Sign In ",
-                        style: AppTypography.avenir()
-                            .bodySmallSB
-                            .copyWith(color: AppColors.primaryColor),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ));
+                        },
+                        child: Text(
+                          "Sign In ",
+                          style: AppTypography.avenir()
+                              .bodySmallSB
+                              .copyWith(color: AppColors.primaryColor),
+                        ),
                       ),
                     ],
                   )
