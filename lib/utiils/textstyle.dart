@@ -1,14 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:flutter/material.dart';
 
 class AppTypography {
   final String fontFam;
 
-  AppTypography(this.fontFam);
-  factory AppTypography.baloo() => AppTypography("Baloo");
-  factory AppTypography.avenir() => AppTypography("Avenir");
+  AppTypography._(this.fontFam);
+
+  factory AppTypography.baloo() => AppTypography._("Baloo");
+  factory AppTypography.avenir() => AppTypography._("Avenir");
 
   TextStyle get h4 => TextStyle(
       fontWeight: FontWeight.w600,
