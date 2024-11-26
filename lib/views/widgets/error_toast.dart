@@ -6,7 +6,7 @@ import 'package:imove/utiils/utils.dart';
 errorToast(String msg) {
   return Fluttertoast.showToast(
       msg: msg,
-      fontAsset: "assets/fonts/sf_pro_display/SFPRODISPLAYBOLD.otf",
+      fontAsset: "assets/fonts/AvenirLTStd-Medium.otf",
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.TOP,
       timeInSecForIosWeb: 1,
