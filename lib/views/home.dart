@@ -13,9 +13,9 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     Provider.of<UserViewmodel>(context, listen: false).setUser();
     final screens = [
-      HomeScreen(),
-      HistoryScreen(),
-      ProfileScreen(),
+      const HomeScreen(),
+      const HistoryScreen(),
+      const ProfileScreen(),
     ];
     return Consumer<HomeViewmodel>(builder: (context, value, child) {
       return Scaffold(
@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
                 onTap: () {
                   value.setIndex(0);
                 },
-                child: ImageIcon(
+                child: const ImageIcon(
                   AssetImage("assets/icons/home.png"),
                 ),
               ),
@@ -37,7 +37,7 @@ class Home extends StatelessWidget {
                 onTap: () {
                   value.setIndex(1);
                 },
-                child: ImageIcon(
+                child: const ImageIcon(
                   AssetImage("assets/icons/calender.png"),
                 ),
               ),
@@ -47,7 +47,7 @@ class Home extends StatelessWidget {
                 onTap: () {
                   value.setIndex(2);
                 },
-                child: ImageIcon(
+                child: const ImageIcon(
                   AssetImage("assets/icons/person.png"),
                 ),
               ),
