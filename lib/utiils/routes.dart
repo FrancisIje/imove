@@ -13,7 +13,7 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const HomeScreen(),
+      builder: (context, state) => const Home(),
     ),
     GoRoute(
       path: '/onboarding',
@@ -21,7 +21,7 @@ final router = GoRouter(
     ),
     GoRoute(
         path: '/register',
-        builder: (context, state) => const OnboardingScreen(),
+        builder: (context, state) => const SignUpScreen(),
         routes: [
           GoRoute(
             path: '/verify',
