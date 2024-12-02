@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:imove/utiils/utils.dart';
 import 'package:imove/views/login.dart';
 import 'package:imove/views/widgets/logo.dart';
@@ -51,7 +52,9 @@ class OnboardingScreen extends StatelessWidget {
                   ),
                   Gap(16.h),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.go("/register");
+                    },
                     child: const Text("Get Started"),
                   ),
                   Gap(24.h),
@@ -67,9 +70,7 @@ class OnboardingScreen extends StatelessWidget {
                       Gap(4.w),
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ));
+                          context.go("/login");
                         },
                         child: Text(
                           "Sign In ",

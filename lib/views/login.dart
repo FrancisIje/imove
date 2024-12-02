@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:imove/utiils/colors.dart';
 import 'package:imove/utiils/textstyle.dart';
 import 'package:imove/views/signup.dart';
@@ -78,7 +79,11 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 Gap(32.h),
-                ElevatedButton(onPressed: () {}, child: const Text("Login")),
+                ElevatedButton(
+                    onPressed: () {
+                      context.go("/");
+                    },
+                    child: const Text("Login")),
                 Gap(32.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
