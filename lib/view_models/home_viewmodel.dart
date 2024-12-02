@@ -18,20 +18,20 @@ class HomeViewmodel with ChangeNotifier {
   }
 
   void recentHistory() {
+    // Get the deliveries from historyViewmodel
     List<DeliveryModel> unsortedDeliveries = historyViewmodel.deliveries;
 
+    // Sort deliveries by date in descending order
     unsortedDeliveries.sort((a, b) => b.dateTime.compareTo(a.dateTime));
 
-    if (unsortedDeliveries.length < 3) {
-      for (var i = 0; i < unsortedDeliveries.length; i++) {
-        _lastThreeDeliveries.add(unsortedDeliveries[i]);
-      }
-    } else {
-      for (var i = 0; i < 3; i++) {
-        _lastThreeDeliveries.add(unsortedDeliveries[i]);
-      }
-    }
+    _lastThreeDeliveries.clear();
 
+    // Take the first 3 or fewer deliveries
+    _lastThreeDeliveries.addAll(
+      unsortedDeliveries.take(3),
+    );
+
+    // Notify listeners of the change
     notifyListeners();
   }
 

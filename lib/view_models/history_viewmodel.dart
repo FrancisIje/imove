@@ -10,7 +10,7 @@ class HistoryViewmodel extends ChangeNotifier {
   void getDeliveries() {
     _deliveries = [
       DeliveryModel(
-          id: "0000",
+          id: "ORDR0000",
           price: 3000,
           orderStatus: OrderStatus.completed,
           dateTime: DateTime(2000),
@@ -18,7 +18,31 @@ class HistoryViewmodel extends ChangeNotifier {
           receiverName: "John Doe",
           latLong: LatLong(lat: 0.1, long: 0.2)),
       DeliveryModel(
-          id: "1111",
+          id: "ORDR1111",
+          price: 2300,
+          orderStatus: OrderStatus.completed,
+          dateTime: DateTime(2023),
+          recieverId: "asdfsds",
+          receiverName: "John Doe",
+          latLong: LatLong(lat: 0.2, long: 0.2)),
+      DeliveryModel(
+          id: "ORDR2323",
+          price: 2300,
+          orderStatus: OrderStatus.completed,
+          dateTime: DateTime(2023),
+          recieverId: "asdfsds",
+          receiverName: "John Doe",
+          latLong: LatLong(lat: 0.2, long: 0.2)),
+      DeliveryModel(
+          id: "ORDR9303",
+          price: 2300,
+          orderStatus: OrderStatus.completed,
+          dateTime: DateTime(2023),
+          recieverId: "asdfsds",
+          receiverName: "John Doe",
+          latLong: LatLong(lat: 0.2, long: 0.2)),
+      DeliveryModel(
+          id: "ORDR37830",
           price: 2300,
           orderStatus: OrderStatus.completed,
           dateTime: DateTime(2023),

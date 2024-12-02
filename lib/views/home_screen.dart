@@ -2,17 +2,37 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:imove/models/delivery.dart';
 
 import 'package:imove/utiils/utils.dart';
+import 'package:imove/view_models/history_viewmodel.dart';
 import 'package:imove/view_models/home_viewmodel.dart';
 import 'package:imove/views/widgets/transaction_widget.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Call your methods here after the first frame is rendered
+      Provider.of<HistoryViewmodel>(context, listen: false).getDeliveries();
+      Provider.of<HomeViewmodel>(context, listen: false).recentHistory();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    List<DeliveryModel> deliveries =
+        Provider.of<HomeViewmodel>(context).lastThreeDeliveries;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: SafeArea(
@@ -60,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                 )
               ],
             ),
-            Gap(16.h),
+            Gap(4.h),
             const Divider(),
             Gap(16.h),
             Align(
@@ -170,7 +190,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Gap(16.h),
+            Gap(24.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: Row(
@@ -178,26 +198,36 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Text(
                     "History",
-                    style: AppTypography.avenir().bodyMediumSB,
+                    style: AppTypography.avenir().bodyLargeSB,
                   ),
-                  Text(
-                    "View All",
-                    style: AppTypography.avenir()
-                        .bodyMediumSB
-                        .copyWith(color: AppColors.primaryColor),
+                  GestureDetector(
+                    onTap: () {
+                      Provider.of<HomeViewmodel>(context, listen: false)
+                          .setIndex(1);
+                    },
+                    child: Text(
+                      "View All",
+                      style: AppTypography.avenir()
+                          .bodyLargeSB
+                          .copyWith(color: AppColors.primaryColor),
+                    ),
                   ),
                 ],
               ),
             ),
             Gap(8.h),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (context, index) => Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: const TransactionWidget()),
-              ),
-            )
+            deliveries.isEmpty
+                ? Container()
+                : Expanded(
+                    child: ListView.builder(
+                      itemCount: deliveries.length,
+                      itemBuilder: (context, index) => Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: TransactionWidget(
+                            deliveryModel: deliveries[index],
+                          )),
+                    ),
+                  )
           ],
         ),
       ),

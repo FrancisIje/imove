@@ -5,7 +5,6 @@ import 'package:imove/utiils/utils.dart';
 import 'package:imove/view_models/history_viewmodel.dart';
 import 'package:imove/view_models/home_viewmodel.dart';
 import 'package:imove/view_models/user_viewmodel.dart';
-import 'package:imove/views/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -54,7 +53,6 @@ class IMoveApp extends StatelessWidget {
                         const WidgetStatePropertyAll(Colors.white)),
               ),
             ),
-            // home: const SplashScreen(),
           );
         });
   }
