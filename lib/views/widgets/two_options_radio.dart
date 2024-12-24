@@ -29,7 +29,7 @@ class TwoOptionsRadioState extends State<TwoOptionsRadio> {
           height: 50,
           width: 150,
           child: RadioListTile<String>(
-            contentPadding: EdgeInsets.all(0),
+            contentPadding: const EdgeInsets.all(0),
             title: Text(
               widget.option1,
               style: AppTypography.avenir().bodyMediumR,
@@ -39,12 +39,12 @@ class TwoOptionsRadioState extends State<TwoOptionsRadio> {
             onChanged: _onOptionChanged,
           ),
         ),
-        Expanded(child: Gap(2)),
+        const Expanded(child: Gap(2)),
         SizedBox(
           height: 50,
           width: 150,
           child: RadioListTile<String>(
-            contentPadding: EdgeInsets.all(0),
+            contentPadding: const EdgeInsets.all(0),
             toggleable: true,
             activeColor: AppColors.primaryColor,
             title: Text(
@@ -56,7 +56,7 @@ class TwoOptionsRadioState extends State<TwoOptionsRadio> {
             onChanged: _onOptionChanged,
           ),
         ),
-        Expanded(child: Gap(2)),
+        const Expanded(child: Gap(2)),
       ],
     );
   }
