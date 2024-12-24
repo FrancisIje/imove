@@ -120,7 +120,7 @@ class AddDetailsScreen extends StatelessWidget {
                     .bodySmallM
                     .copyWith(color: Colors.black45),
               ),
-              RadioToggleExample(option1: "Me", option2: "Receipient"),
+              const TwoOptionsRadio(option1: "Me", option2: "Receipient"),
               Gap(16.h),
               Text(
                 "Payment Type",
