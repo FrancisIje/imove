@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 
 import 'package:imove/utiils/utils.dart';
 // import 'package:imove/view_models/location_viewmodel.dart';
-import 'package:imove/views/add_details.dart';
 // import 'package:imove/views/delivery_details.dart';
 // import 'package:provider/provider.dart';
 

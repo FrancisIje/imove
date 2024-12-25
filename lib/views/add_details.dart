@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:imove/utiils/colors.dart';
 import 'package:imove/utiils/textstyle.dart';
-import 'package:imove/views/confirm_details.dart';
+
 import 'package:imove/views/widgets/two_options_radio.dart';
 
 class AddDetailsScreen extends StatefulWidget {
