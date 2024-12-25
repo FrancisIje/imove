@@ -4,7 +4,6 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:imove/utiils/colors.dart';
 import 'package:imove/utiils/textstyle.dart';
-import 'package:imove/views/signup.dart';
 import 'package:imove/views/widgets/logo.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -41,6 +40,9 @@ class LoginScreen extends StatelessWidget {
                 TextField(
                   decoration: InputDecoration(
                     hintText: "johndoe@email.com",
+                    hintStyle: AppTypography.avenir()
+                        .bodySmallSB
+                        .copyWith(color: Colors.black45),
                     enabled: true,
                     fillColor: AppColors.textFieldBackgroundColor,
                     filled: true,
@@ -59,6 +61,9 @@ class LoginScreen extends StatelessWidget {
                 Gap(4.h),
                 TextField(
                   decoration: InputDecoration(
+                    hintStyle: AppTypography.avenir()
+                        .bodySmallSB
+                        .copyWith(color: Colors.black45),
                     hintText: "********",
                     enabled: true,
                     fillColor: AppColors.textFieldBackgroundColor,
@@ -93,9 +98,7 @@ class LoginScreen extends StatelessWidget {
                     Gap(8.w),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const SignUpScreen(),
-                        ));
+                        context.push("/register");
                       },
                       child: Text(
                         "Sign up",

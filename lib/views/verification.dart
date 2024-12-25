@@ -1,11 +1,11 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:imove/utiils/utils.dart';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
-import 'package:imove/views/home.dart';
 import 'package:imove/views/widgets/error_toast.dart';
 
 class VerificationScreen extends StatelessWidget {
@@ -223,9 +223,7 @@ class VerificationScreen extends StatelessWidget {
                                 controllers[3].text.isEmpty) {
                               errorToast("Enter verification code");
                             } else {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const Home(),
-                              ));
+                              context.push("/");
                             }
                           }),
                     ],

@@ -9,6 +9,7 @@ import 'package:imove/views/home.dart';
 import 'package:imove/views/instant_delievry.dart';
 import 'package:imove/views/login.dart';
 import 'package:imove/views/onboarding.dart';
+import 'package:imove/views/schdule_delivery.dart';
 import 'package:imove/views/signup.dart';
 import 'package:imove/views/splash_screen.dart';
 import 'package:imove/views/verification.dart';

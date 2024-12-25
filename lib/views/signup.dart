@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:imove/views/login.dart';
-import 'package:imove/views/verification.dart';
+import 'package:go_router/go_router.dart';
+import 'package:imove/view_models/sign_up_viewmodel.dart';
 
 import 'package:imove/views/widgets/logo.dart';
+import 'package:provider/provider.dart';
 
 import '../utiils/utils.dart';
 
@@ -13,6 +14,7 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<SignUpViewmodel>(context);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -49,7 +51,11 @@ class SignUpScreen extends StatelessWidget {
                               ),
                               Gap(4.h),
                               TextField(
+                                controller: viewModel.controllers[0],
                                 decoration: InputDecoration(
+                                  hintStyle: AppTypography.avenir()
+                                      .bodySmallSB
+                                      .copyWith(color: Colors.black45),
                                   hintText: "John",
                                   enabled: true,
                                   fillColor: AppColors.textFieldBackgroundColor,
@@ -75,8 +81,12 @@ class SignUpScreen extends StatelessWidget {
                               ),
                               Gap(4.h),
                               TextField(
+                                controller: viewModel.controllers[1],
                                 decoration: InputDecoration(
                                   hintText: "Doe",
+                                  hintStyle: AppTypography.avenir()
+                                      .bodySmallSB
+                                      .copyWith(color: Colors.black45),
                                   enabled: true,
                                   fillColor: AppColors.textFieldBackgroundColor,
                                   filled: true,
@@ -100,8 +110,12 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   Gap(4.h),
                   TextField(
+                    controller: viewModel.controllers[2],
                     decoration: InputDecoration(
                       hintText: "+2348011111111",
+                      hintStyle: AppTypography.avenir()
+                          .bodySmallSB
+                          .copyWith(color: Colors.black45),
                       enabled: true,
                       fillColor: AppColors.textFieldBackgroundColor,
                       filled: true,
@@ -119,8 +133,12 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   Gap(4.h),
                   TextField(
+                    controller: viewModel.controllers[3],
                     decoration: InputDecoration(
                       hintText: "johndoe@email.com",
+                      hintStyle: AppTypography.avenir()
+                          .bodySmallSB
+                          .copyWith(color: Colors.black45),
                       enabled: true,
                       fillColor: AppColors.textFieldBackgroundColor,
                       filled: true,
@@ -138,8 +156,12 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   Gap(4.h),
                   TextField(
+                    controller: viewModel.controllers[4],
                     decoration: InputDecoration(
                       hintText: "********",
+                      hintStyle: AppTypography.avenir()
+                          .bodySmallSB
+                          .copyWith(color: Colors.black45),
                       enabled: true,
                       fillColor: AppColors.textFieldBackgroundColor,
                       filled: true,
@@ -153,9 +175,7 @@ class SignUpScreen extends StatelessWidget {
                   Gap(32.h),
                   ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const VerificationScreen(),
-                        ));
+                        context.push("/register/verify");
                       },
                       child: const Text("Continue")),
                   Gap(16.h),
@@ -176,9 +196,7 @@ class SignUpScreen extends StatelessWidget {
                       Gap(8.w),
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ));
+                          viewModel.handleSignUp(context);
                         },
                         child: Text(
                           "Log in",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imove/view_models/history_viewmodel.dart';
 import 'package:imove/view_models/home_viewmodel.dart';
 import 'package:imove/view_models/user_viewmodel.dart';
 import 'package:imove/views/history_screen.dart';
@@ -6,12 +7,23 @@ import 'package:imove/views/home_screen.dart';
 import 'package:imove/views/profile_screen.dart';
 import 'package:provider/provider.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  void initState() {
     Provider.of<UserViewmodel>(context, listen: false).setUser();
+    Provider.of<HistoryViewmodel>(context, listen: false).getDeliveries();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final screens = [
       const HomeScreen(),
       const HistoryScreen(),

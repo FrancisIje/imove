@@ -6,20 +6,15 @@ class UserViewmodel extends ChangeNotifier {
 
   User get user =>
       _user ??
-      User(
-          id: "00000000",
-          firstName: "Francis",
-          lastName: "Ijenebe",
-          email: "ijenebefrancis@gmail.com",
-          phoneNumber: 08104204245);
+      User(id: "", firstName: "", lastName: "", email: "", phoneNumber: 0);
 
   void setUser() async {
     final user = await Future.delayed(Durations.extralong2).then(
       (value) => User(
-          id: "id",
-          firstName: "firstName",
-          lastName: "lastName",
-          email: "email",
+          id: "00000000",
+          firstName: "Francis",
+          lastName: "Ijenebe",
+          email: "ijenebefrancis@gmail.com",
           phoneNumber: 08023242323),
     );
     _user = user;

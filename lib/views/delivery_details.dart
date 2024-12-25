@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:imove/utiils/textstyle.dart';
 import 'package:imove/utiils/utils.dart';
 
@@ -21,7 +22,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                 children: [
                   InkWell(
                       onTap: () {
-                        Navigator.of(context).pop();
+                        context.pop();
                       },
                       child: const Icon(Icons.arrow_back_ios_new)),
                   Gap(16.w),

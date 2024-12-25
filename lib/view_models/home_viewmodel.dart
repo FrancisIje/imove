@@ -20,6 +20,7 @@ class HomeViewmodel with ChangeNotifier {
   void recentHistory() {
     // Get the deliveries from historyViewmodel
     List<DeliveryModel> unsortedDeliveries = historyViewmodel.deliveries;
+    print(unsortedDeliveries.length);
 
     // Sort deliveries by date in descending order
     unsortedDeliveries.sort((a, b) => b.dateTime.compareTo(a.dateTime));
@@ -32,7 +33,10 @@ class HomeViewmodel with ChangeNotifier {
     );
 
     // Notify listeners of the change
-    notifyListeners();
+    print("recent historydone");
+    print(_lastThreeDeliveries);
+
+    // notifyListeners();
   }
 
   HomeViewmodel(this.userViewModel, this.historyViewmodel);

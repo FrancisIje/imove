@@ -1,13 +1,22 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:imove/firebase_options.dart';
+import 'package:imove/services/map/map.dart';
 import 'package:imove/utiils/utils.dart';
 import 'package:imove/view_models/history_viewmodel.dart';
 import 'package:imove/view_models/home_viewmodel.dart';
+import 'package:imove/view_models/location_viewmodel.dart';
+import 'package:imove/view_models/sign_up_viewmodel.dart';
 import 'package:imove/view_models/user_viewmodel.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -16,13 +25,22 @@ void main() {
       ChangeNotifierProvider(
         create: (context) => HistoryViewmodel(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => LocationViewmodel(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => MapApi(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => SignUpViewmodel(),
+      ),
       ChangeNotifierProxyProvider2<UserViewmodel, HistoryViewmodel,
           HomeViewmodel>(
         create: (_) => HomeViewmodel(
             Provider.of<UserViewmodel>(_, listen: false),
             Provider.of<HistoryViewmodel>(_, listen: false)),
         update: (_, userViewModel, historyViewModel, previousViewModel) =>
-            previousViewModel ?? HomeViewmodel(userViewModel, historyViewModel),
+            HomeViewmodel(userViewModel, historyViewModel),
       ),
     ],
     child: const IMoveApp(),
