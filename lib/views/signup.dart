@@ -174,10 +174,21 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   Gap(32.h),
                   ElevatedButton(
-                      onPressed: () {
+                    onPressed: () async {
+                      bool success = await viewModel.handleSignUp();
+                      if (success) {
                         context.push("/register/verify");
-                      },
-                      child: const Text("Continue")),
+                      }
+                    },
+                    child: viewModel.isLoading
+                        ? SizedBox(
+                            height: 10,
+                            width: 10,
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+                            ))
+                        : const Text("Continue"),
+                  ),
                   Gap(16.h),
                   Align(
                     alignment: Alignment.center,
@@ -196,7 +207,7 @@ class SignUpScreen extends StatelessWidget {
                       Gap(8.w),
                       GestureDetector(
                         onTap: () {
-                          viewModel.handleSignUp(context);
+                          context.push("/login");
                         },
                         child: Text(
                           "Log in",
