@@ -2,6 +2,8 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:imove/services/auth/auth_service.dart';
 import 'package:imove/utiils/utils.dart';
 import 'package:imove/view_models/user_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -105,6 +107,11 @@ class ProfileScreen extends StatelessWidget {
               ),
               Gap(8.h),
               ListTile(
+                onTap: () async {
+                  AuthService.emailPassword().signout().then(
+                        (value) => context.go("/onboarding"),
+                      );
+                },
                 leading: Icon(
                   Icons.logout,
                   color: AppColors.primaryColor,
