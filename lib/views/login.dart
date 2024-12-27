@@ -4,13 +4,16 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:imove/utiils/colors.dart';
 import 'package:imove/utiils/textstyle.dart';
+import 'package:imove/view_models/login_viewmodel.dart';
 import 'package:imove/views/widgets/logo.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<LoginViewmodel>(context);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -19,7 +22,7 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ImoveLogo(color: Colors.black),
+                const ImoveLogo(color: Colors.black),
                 Gap(16.h),
                 Text(
                   "Welcome",
@@ -38,6 +41,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 Gap(4.h),
                 TextField(
+                  controller: viewModel.emailController,
                   decoration: InputDecoration(
                     hintText: "johndoe@email.com",
                     hintStyle: AppTypography.avenir()
@@ -60,6 +64,8 @@ class LoginScreen extends StatelessWidget {
                 ),
                 Gap(4.h),
                 TextField(
+                  obscureText: true,
+                  controller: viewModel.passwordController,
                   decoration: InputDecoration(
                     hintStyle: AppTypography.avenir()
                         .bodySmallSB
@@ -84,11 +90,24 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 Gap(32.h),
-                ElevatedButton(
-                    onPressed: () {
-                      context.go("/");
-                    },
-                    child: const Text("Login")),
+                Consumer<LoginViewmodel>(builder: (context, val, child) {
+                  return ElevatedButton(
+                      onPressed: () async {
+                        final isLoggedIn = await val.login();
+                        print(isLoggedIn);
+                        if (isLoggedIn) {
+                          context.go("/");
+                        }
+                      },
+                      child: viewModel.isLoading
+                          ? SizedBox(
+                              height: 10,
+                              width: 10,
+                              child: const CircularProgressIndicator(
+                                color: Colors.white,
+                              ))
+                          : const Text("Login"));
+                }),
                 Gap(32.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

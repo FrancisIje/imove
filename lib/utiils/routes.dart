@@ -25,12 +25,15 @@ final router = GoRouter(
         routes: [
           GoRoute(
             path: '/verify',
-            builder: (context, state) => const VerificationScreen(),
+            builder: (context, state) => ChangeNotifierProvider(
+                create: (context) => VerificationViewmodel(),
+                child: const VerificationScreen()),
           ),
         ]),
     GoRoute(
       path: '/login',
-      builder: (context, state) => const LoginScreen(),
+      builder: (context, state) => ChangeNotifierProvider(
+          create: (context) => LoginViewmodel(), child: const LoginScreen()),
     ),
     GoRoute(
       path: '/splash',
