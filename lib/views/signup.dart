@@ -156,6 +156,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   Gap(4.h),
                   TextField(
+                    obscureText: true,
                     controller: viewModel.controllers[4],
                     decoration: InputDecoration(
                       hintText: "********",
