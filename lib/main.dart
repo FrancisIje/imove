@@ -7,6 +7,7 @@ import 'package:imove/services/map/map.dart';
 import 'package:imove/utiils/utils.dart';
 import 'package:imove/view_models/history_viewmodel.dart';
 import 'package:imove/view_models/home_viewmodel.dart';
+import 'package:imove/view_models/instant_delivery_viewmodel.dart';
 import 'package:imove/view_models/location_viewmodel.dart';
 import 'package:imove/view_models/sign_up_viewmodel.dart';
 import 'package:imove/view_models/user_viewmodel.dart';
@@ -33,6 +34,13 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => SignUpViewmodel(),
+      ),
+      ChangeNotifierProxyProvider<LocationViewmodel, InstantDeliveryViewmodel>(
+        create: (context) => InstantDeliveryViewmodel(
+          locationViewModel: context.read<LocationViewmodel>(),
+        ),
+        update: (context, value, previous) =>
+            InstantDeliveryViewmodel(locationViewModel: value),
       ),
       ChangeNotifierProxyProvider2<UserViewmodel, HistoryViewmodel,
           HomeViewmodel>(

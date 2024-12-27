@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:imove/utiils/utils.dart';
+import 'package:imove/view_models/instant_delivery_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class TwoOptionsRadio extends StatefulWidget {
   final String option1;
   final String option2;
-  const TwoOptionsRadio(
-      {super.key, required this.option1, required this.option2});
+
+  const TwoOptionsRadio({
+    super.key,
+    required this.option1,
+    required this.option2,
+  });
 
   @override
   TwoOptionsRadioState createState() => TwoOptionsRadioState();
 }
 
 class TwoOptionsRadioState extends State<TwoOptionsRadio> {
-  String? _selectedOption;
-
-  void _onOptionChanged(String? value) {
-    setState(() {
-      _selectedOption = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -35,8 +33,9 @@ class TwoOptionsRadioState extends State<TwoOptionsRadio> {
               style: AppTypography.avenir().bodyMediumR,
             ),
             value: widget.option1,
-            groupValue: _selectedOption,
-            onChanged: _onOptionChanged,
+            groupValue: context.watch<InstantDeliveryViewmodel>().payer,
+            onChanged: (_) =>
+                context.read<InstantDeliveryViewmodel>().setPayer = "Me",
           ),
         ),
         const Expanded(child: Gap(2)),
@@ -52,8 +51,9 @@ class TwoOptionsRadioState extends State<TwoOptionsRadio> {
               style: AppTypography.avenir().bodyMediumR,
             ),
             value: widget.option2,
-            groupValue: _selectedOption,
-            onChanged: _onOptionChanged,
+            groupValue: context.watch<InstantDeliveryViewmodel>().payer,
+            onChanged: (_) =>
+                context.read<InstantDeliveryViewmodel>().setPayer = "Recipient",
           ),
         ),
         const Expanded(child: Gap(2)),

@@ -5,8 +5,10 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:imove/utiils/colors.dart';
 import 'package:imove/utiils/textstyle.dart';
+import 'package:imove/view_models/instant_delivery_viewmodel.dart';
 
 import 'package:imove/views/widgets/two_options_radio.dart';
+import 'package:provider/provider.dart';
 
 class AddDetailsScreen extends StatefulWidget {
   const AddDetailsScreen({super.key});
@@ -16,24 +18,25 @@ class AddDetailsScreen extends StatefulWidget {
 }
 
 class _AddDetailsScreenState extends State<AddDetailsScreen> {
-  final TextEditingController quantityController = TextEditingController();
-  final TextEditingController recipientNameController = TextEditingController();
-  final TextEditingController recipientNumberController =
-      TextEditingController();
+  // final TextEditingController quantityController = TextEditingController();
+  // final TextEditingController recipientNameController = TextEditingController();
+  // final TextEditingController recipientNumberController =
+  //     TextEditingController();
 
-  String? selectedCategory;
-  String? selectedPayer;
+  // String? selectedCategory;
+  // String? selectedPayer;
 
-  @override
-  void dispose() {
-    quantityController.dispose();
-    recipientNameController.dispose();
-    recipientNumberController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   quantityController.dispose();
+  //   recipientNameController.dispose();
+  //   recipientNumberController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<InstantDeliveryViewmodel>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -93,9 +96,9 @@ class _AddDetailsScreenState extends State<AddDetailsScreen> {
                     ),
                   ],
                   onChanged: (value) {
-                    setState(() {
-                      selectedCategory = value;
-                    });
+                    if (value!.isNotEmpty) {
+                      viewModel.setCategory = value;
+                    }
                   },
                 ),
                 Gap(8.h),
@@ -126,7 +129,7 @@ class _AddDetailsScreenState extends State<AddDetailsScreen> {
                       .copyWith(color: Colors.black45),
                 ),
                 TextField(
-                  controller: quantityController,
+                  controller: viewModel.controllers[4],
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
@@ -168,7 +171,7 @@ class _AddDetailsScreenState extends State<AddDetailsScreen> {
                       .copyWith(color: Colors.black45),
                 ),
                 TextField(
-                  controller: recipientNameController,
+                  controller: viewModel.controllers[2],
                   inputFormatters: [
                     FilteringTextInputFormatter.singleLineFormatter
                   ],
@@ -194,7 +197,7 @@ class _AddDetailsScreenState extends State<AddDetailsScreen> {
                       .copyWith(color: Colors.black45),
                 ),
                 TextField(
-                  controller: recipientNumberController,
+                  controller: viewModel.controllers[3],
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
@@ -214,7 +217,10 @@ class _AddDetailsScreenState extends State<AddDetailsScreen> {
                 const AspectRatio(aspectRatio: 2.5),
                 ElevatedButton(
                   onPressed: () {
-                    context.push("/confirm-details");
+                    final isFilled = viewModel.checkFields();
+                    if (isFilled) {
+                      context.push("/confirm-details");
+                    }
                     // context.push()
                   },
                   child: const Text("Continue"),

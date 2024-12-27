@@ -1,9 +1,11 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:imove/models/delivery.dart';
 import 'package:imove/utiils/utils.dart';
+import 'package:intl/intl.dart';
 
 class TransactionWidget extends StatelessWidget {
   final DeliveryModel deliveryModel;
@@ -29,28 +31,68 @@ class TransactionWidget extends StatelessWidget {
                   ),
                   Gap(2.h),
                   Text(
-                    "Receipient: ${deliveryModel.receiverName} Doe",
+                    "Receipient: ${deliveryModel.receiverName}",
                     style: AppTypography.avenir()
                         .captionM
                         .copyWith(color: const Color(0xFF545454)),
                   ),
                 ],
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.green.shade800,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(4.r),
-                  ),
-                ),
-                padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
-                child: Text(
-                  "Completed",
-                  style: AppTypography.avenir()
-                      .captionM
-                      .copyWith(color: Colors.white),
-                ),
-              )
+              Builder(builder: (context) {
+                switch (deliveryModel.orderStatus) {
+                  case OrderStatus.pending:
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Colors.yellow.shade800,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4.r),
+                        ),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
+                      child: Text(
+                        "Pending",
+                        style: AppTypography.avenir()
+                            .captionM
+                            .copyWith(color: Colors.white),
+                      ),
+                    );
+                  case OrderStatus.completed:
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Colors.green.shade800,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4.r),
+                        ),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
+                      child: Text(
+                        "Completed",
+                        style: AppTypography.avenir()
+                            .captionM
+                            .copyWith(color: Colors.white),
+                      ),
+                    );
+                  case OrderStatus.failed:
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade800,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4.r),
+                        ),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
+                      child: Text(
+                        "Failed",
+                        style: AppTypography.avenir()
+                            .captionM
+                            .copyWith(color: Colors.white),
+                      ),
+                    );
+                }
+              })
             ],
           ),
           Gap(16.h),
@@ -92,12 +134,12 @@ class TransactionWidget extends StatelessWidget {
                   ),
                   Gap(4.h),
                   Text(
-                    "Maryland bustop, Anthony Ikeja",
+                    deliveryModel.recieverAddress.capitalize,
                     style: AppTypography.avenir().bodySmallSB,
                   ),
                   Gap(4.h),
                   Text(
-                    "12 January 2020, 2:43pm",
+                    DateFormat.yMMMMEEEEd().format(deliveryModel.dateTime),
                     style: AppTypography.avenir()
                         .captionM
                         .copyWith(color: const Color(0xFF545454)),

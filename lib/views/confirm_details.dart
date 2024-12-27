@@ -4,6 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:imove/utiils/colors.dart';
 import 'package:imove/utiils/textstyle.dart';
+import 'package:imove/view_models/instant_delivery_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class ConfirmDetailsScreen extends StatelessWidget {
   const ConfirmDetailsScreen({
@@ -12,11 +14,14 @@ class ConfirmDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String category = "Electronics";
-    final int quantity = 5;
-    final String payer = "Me";
-    final String recipientName = "John Doe";
-    final String recipientNumber = "08104204245";
+    final viewModel = Provider.of<InstantDeliveryViewmodel>(context);
+    final String category = viewModel.category ?? "";
+    final int quantity = int.tryParse(viewModel.controllers[4].text) ?? 0;
+    final String payer = viewModel.payer ?? "Me";
+    final String recipientName = viewModel.controllers[2].text;
+    final String recipientNumber = viewModel.controllers[3].text;
+    final String senderAddress = viewModel.controllers[0].text;
+    final String receiverAddress = viewModel.controllers[1].text;
     return Scaffold(
       backgroundColor: Colors.white54,
       body: Stack(
@@ -124,7 +129,7 @@ class ConfirmDetailsScreen extends StatelessWidget {
                             ),
                             Gap(4.h),
                             Text(
-                              "32 Samwell Sq, Chevron",
+                              senderAddress,
                               style: AppTypography.avenir().bodySmallSB,
                             ),
                             Gap(24.h),
@@ -135,7 +140,7 @@ class ConfirmDetailsScreen extends StatelessWidget {
                                   .copyWith(color: Colors.black45),
                             ),
                             Text(
-                              "21 Johnson Estate, Okota",
+                              receiverAddress,
                               style: AppTypography.avenir().bodySmallSB,
                             ),
                           ],
@@ -157,8 +162,13 @@ class ConfirmDetailsScreen extends StatelessWidget {
                     _DetailRow(label: "Fee", value: "N2000"),
                     const Spacer(),
                     ElevatedButton(
-                      onPressed: () {
-                        context.go("/courier");
+                      onPressed: () async {
+                        final isOrderPlaced = await context
+                            .read<InstantDeliveryViewmodel>()
+                            .placeOrder();
+                        if (isOrderPlaced) {
+                          context.go("/courier");
+                        }
                       },
                       child: const Text("Confirm and Proceed"),
                     ),

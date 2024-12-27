@@ -6,6 +6,9 @@ import 'package:go_router/go_router.dart';
 // import 'package:imove/services/map/map.dart';
 
 import 'package:imove/utiils/utils.dart';
+import 'package:imove/view_models/instant_delivery_viewmodel.dart';
+import 'package:imove/views/widgets/error_toast.dart';
+import 'package:provider/provider.dart';
 // import 'package:imove/view_models/location_viewmodel.dart';
 // import 'package:imove/views/delivery_details.dart';
 // import 'package:provider/provider.dart';
@@ -17,6 +20,7 @@ class InstantDelievryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // late GoogleMapController mapController;
     // final locationProv = Provider.of<LocationViewmodel>(context);
+    final viewModel = Provider.of<InstantDeliveryViewmodel>(context);
     return Scaffold(
       backgroundColor: Colors.white54,
       body: Stack(
@@ -70,6 +74,7 @@ class InstantDelievryScreen extends StatelessWidget {
                     ),
                     Gap(8.h),
                     TextField(
+                      controller: viewModel.controllers[0],
                       decoration: InputDecoration(
                         hintText: "89 Opebi Rd, Ikeja, Lagos, Nigeria",
                         hintStyle: AppTypography.avenir()
@@ -92,6 +97,7 @@ class InstantDelievryScreen extends StatelessWidget {
                     ),
                     Gap(8.h),
                     TextField(
+                      controller: viewModel.controllers[1],
                       decoration: InputDecoration(
                         hintStyle: AppTypography.avenir()
                             .bodySmallSB
@@ -110,7 +116,12 @@ class InstantDelievryScreen extends StatelessWidget {
                     const AspectRatio(aspectRatio: 5),
                     ElevatedButton(
                         onPressed: () {
-                          context.push("/add-details");
+                          if (viewModel.controllers[0].text.isEmpty ||
+                              viewModel.controllers[1].text.isEmpty) {
+                            errorToast("Input both fields");
+                          } else {
+                            context.push("/add-details");
+                          }
                         },
                         child: const Text(
                           "Next",
