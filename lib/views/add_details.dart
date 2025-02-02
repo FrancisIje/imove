@@ -3,40 +3,28 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:imove/helpers/add_details_type_enum.dart';
 import 'package:imove/utiils/colors.dart';
 import 'package:imove/utiils/textstyle.dart';
 import 'package:imove/view_models/instant_delivery_viewmodel.dart';
+import 'package:imove/view_models/schedule_viewmodel.dart';
 
 import 'package:imove/views/widgets/two_options_radio.dart';
 import 'package:provider/provider.dart';
 
-class AddDetailsScreen extends StatefulWidget {
-  const AddDetailsScreen({super.key});
-
-  @override
-  State<AddDetailsScreen> createState() => _AddDetailsScreenState();
-}
-
-class _AddDetailsScreenState extends State<AddDetailsScreen> {
-  // final TextEditingController quantityController = TextEditingController();
-  // final TextEditingController recipientNameController = TextEditingController();
-  // final TextEditingController recipientNumberController =
-  //     TextEditingController();
-
-  // String? selectedCategory;
-  // String? selectedPayer;
-
-  // @override
-  // void dispose() {
-  //   quantityController.dispose();
-  //   recipientNameController.dispose();
-  //   recipientNumberController.dispose();
-  //   super.dispose();
-  // }
+class AddDetailsScreen extends StatelessWidget {
+  final String type;
+  const AddDetailsScreen({super.key, required this.type});
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<InstantDeliveryViewmodel>(context);
+    late final viewModel;
+    if (type == "instant") {
+      viewModel = Provider.of<InstantDeliveryViewModel>(context);
+    } else {
+      viewModel = Provider.of<ScheduleDeliveryViewModel>(context);
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -157,11 +145,7 @@ class _AddDetailsScreenState extends State<AddDetailsScreen> {
                 TwoOptionsRadio(
                   option1: "Me",
                   option2: "Recipient",
-                  // onChanged: (value) {
-                  //   setState(() {
-                  //     selectedPayer = value;
-                  //   });
-                  // },
+                  isInstant: type == "instant",
                 ),
                 Gap(16.h),
                 Text(
@@ -219,7 +203,7 @@ class _AddDetailsScreenState extends State<AddDetailsScreen> {
                   onPressed: () {
                     final isFilled = viewModel.checkFields();
                     if (isFilled) {
-                      context.push("/confirm-details");
+                      context.push("/confirm-details/$type");
                     }
                     // context.push()
                   },

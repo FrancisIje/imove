@@ -25,9 +25,13 @@ class TransactionWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    deliveryModel.id,
-                    style: AppTypography.avenir().bodyMediumM,
+                  SizedBox(
+                    width: 200.w,
+                    child: Text(
+                      "ORD " + deliveryModel.id,
+                      style: AppTypography.avenir().bodyMediumM,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   Gap(2.h),
                   Text(

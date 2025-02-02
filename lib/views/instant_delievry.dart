@@ -20,7 +20,7 @@ class InstantDelievryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // late GoogleMapController mapController;
     // final locationProv = Provider.of<LocationViewmodel>(context);
-    final viewModel = Provider.of<InstantDeliveryViewmodel>(context);
+    final viewModel = Provider.of<InstantDeliveryViewModel>(context);
     return Scaffold(
       backgroundColor: Colors.white54,
       body: Stack(
@@ -120,7 +120,7 @@ class InstantDelievryScreen extends StatelessWidget {
                               viewModel.controllers[1].text.isEmpty) {
                             errorToast("Input both fields");
                           } else {
-                            context.push("/add-details");
+                            context.push("/add-details/instant");
                           }
                         },
                         child: const Text(

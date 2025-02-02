@@ -1,6 +1,7 @@
 library utils;
 
 import 'package:go_router/go_router.dart';
+import 'package:imove/services/auth/auth_service.dart';
 import 'package:imove/view_models/login_viewmodel.dart';
 import 'package:imove/view_models/verification_viewmodel.dart';
 import 'package:imove/views/add_details.dart';

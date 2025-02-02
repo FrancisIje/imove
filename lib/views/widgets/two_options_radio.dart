@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:imove/utiils/utils.dart';
 import 'package:imove/view_models/instant_delivery_viewmodel.dart';
+import 'package:imove/view_models/schedule_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class TwoOptionsRadio extends StatefulWidget {
   final String option1;
   final String option2;
+  final bool isInstant;
 
   const TwoOptionsRadio({
     super.key,
     required this.option1,
     required this.option2,
+    required this.isInstant,
   });
 
   @override
@@ -33,9 +36,12 @@ class TwoOptionsRadioState extends State<TwoOptionsRadio> {
               style: AppTypography.avenir().bodyMediumR,
             ),
             value: widget.option1,
-            groupValue: context.watch<InstantDeliveryViewmodel>().payer,
-            onChanged: (_) =>
-                context.read<InstantDeliveryViewmodel>().setPayer = "Me",
+            groupValue: widget.isInstant
+                ? context.watch<InstantDeliveryViewModel>().payer
+                : context.watch<ScheduleDeliveryViewModel>().payer,
+            onChanged: (_) => widget.isInstant
+                ? context.read<InstantDeliveryViewModel>().setPayer = "Me"
+                : context.read<ScheduleDeliveryViewModel>().setPayer = "Me",
           ),
         ),
         const Expanded(child: Gap(2)),
@@ -51,9 +57,14 @@ class TwoOptionsRadioState extends State<TwoOptionsRadio> {
               style: AppTypography.avenir().bodyMediumR,
             ),
             value: widget.option2,
-            groupValue: context.watch<InstantDeliveryViewmodel>().payer,
-            onChanged: (_) =>
-                context.read<InstantDeliveryViewmodel>().setPayer = "Recipient",
+            groupValue: widget.isInstant
+                ? context.watch<InstantDeliveryViewModel>().payer
+                : context.watch<ScheduleDeliveryViewModel>().payer,
+            onChanged: (_) => widget.isInstant
+                ? context.read<InstantDeliveryViewModel>().setPayer =
+                    "Recipient"
+                : context.read<ScheduleDeliveryViewModel>().setPayer =
+                    "Recipient",
           ),
         ),
         const Expanded(child: Gap(2)),

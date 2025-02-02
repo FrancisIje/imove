@@ -9,6 +9,7 @@ import 'package:imove/view_models/history_viewmodel.dart';
 import 'package:imove/view_models/home_viewmodel.dart';
 import 'package:imove/view_models/instant_delivery_viewmodel.dart';
 import 'package:imove/view_models/location_viewmodel.dart';
+import 'package:imove/view_models/schedule_viewmodel.dart';
 import 'package:imove/view_models/sign_up_viewmodel.dart';
 import 'package:imove/view_models/user_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -35,12 +36,19 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => SignUpViewmodel(),
       ),
-      ChangeNotifierProxyProvider<LocationViewmodel, InstantDeliveryViewmodel>(
-        create: (context) => InstantDeliveryViewmodel(
+      ChangeNotifierProxyProvider<LocationViewmodel, InstantDeliveryViewModel>(
+        create: (context) => InstantDeliveryViewModel(
           locationViewModel: context.read<LocationViewmodel>(),
         ),
         update: (context, value, previous) =>
-            InstantDeliveryViewmodel(locationViewModel: value),
+            InstantDeliveryViewModel(locationViewModel: value),
+      ),
+      ChangeNotifierProxyProvider<LocationViewmodel, ScheduleDeliveryViewModel>(
+        create: (context) => ScheduleDeliveryViewModel(
+          locationViewModel: context.read<LocationViewmodel>(),
+        ),
+        update: (context, value, previous) =>
+            ScheduleDeliveryViewModel(locationViewModel: value),
       ),
       ChangeNotifierProxyProvider2<UserViewmodel, HistoryViewmodel,
           HomeViewmodel>(

@@ -4,17 +4,27 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:imove/utiils/colors.dart';
 import 'package:imove/utiils/textstyle.dart';
+import 'package:imove/view_models/basedelivery_viewmodel.dart';
 import 'package:imove/view_models/instant_delivery_viewmodel.dart';
+import 'package:imove/view_models/schedule_viewmodel.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmDetailsScreen extends StatelessWidget {
+  final String type;
   const ConfirmDetailsScreen({
     super.key,
+    required this.type,
   });
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<InstantDeliveryViewmodel>(context);
+    late final viewModel;
+    if (type == "instant") {
+      viewModel = Provider.of<InstantDeliveryViewModel>(context);
+    } else {
+      viewModel = Provider.of<ScheduleDeliveryViewModel>(context);
+    }
     final String category = viewModel.category ?? "";
     final int quantity = int.tryParse(viewModel.controllers[4].text) ?? 0;
     final String payer = viewModel.payer ?? "Me";
@@ -22,6 +32,8 @@ class ConfirmDetailsScreen extends StatelessWidget {
     final String recipientNumber = viewModel.controllers[3].text;
     final String senderAddress = viewModel.controllers[0].text;
     final String receiverAddress = viewModel.controllers[1].text;
+    final String deliveryDate =
+        DateFormat.yMMMMEEEEd().format(viewModel.deliveryDate);
     return Scaffold(
       backgroundColor: Colors.white54,
       body: Stack(
@@ -39,7 +51,7 @@ class ConfirmDetailsScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: AspectRatio(
-              aspectRatio: 0.8,
+              aspectRatio: 0.72,
               child: Container(
                 padding: EdgeInsets.all(16.h),
                 decoration: BoxDecoration(
@@ -160,14 +172,16 @@ class ConfirmDetailsScreen extends StatelessWidget {
                         label: "Recipient Number", value: recipientNumber),
                     Gap(8.h),
                     _DetailRow(label: "Fee", value: "N2000"),
+                    Gap(8.h),
+                    _DetailRow(label: "Delivery Date", value: deliveryDate),
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () async {
                         final isOrderPlaced = await context
-                            .read<InstantDeliveryViewmodel>()
-                            .placeOrder();
+                            .read<InstantDeliveryViewModel>()
+                            .placeOrder(deliveryDate: DateTime.now());
                         if (isOrderPlaced) {
-                          context.go("/courier");
+                          context.go("/courier/instant");
                         }
                       },
                       child: const Text("Confirm and Proceed"),

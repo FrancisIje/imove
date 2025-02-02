@@ -13,6 +13,8 @@ class DeliveryModel {
   final DateTime dateTime;
   final String senderAddress;
   final String senderId;
+  final String senderName;
+  final String senderPhoneNumber;
   final String recieverAddress;
   final String receiverName;
   final String receiverNumber;
@@ -27,6 +29,8 @@ class DeliveryModel {
       required this.dateTime,
       required this.senderAddress,
       required this.senderId,
+      required this.senderName,
+      required this.senderPhoneNumber,
       required this.recieverAddress,
       required this.receiverName,
       required this.receiverNumber,

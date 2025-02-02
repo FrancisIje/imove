@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "611339769355",
+    "project_id": "imove-cc91c",
+    "storage_bucket": "imove-cc91c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611339769355:android:23a9ca0686cb73e598590e",
+        "android_client_info": {
+          "package_name": "imove.com.ng"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuVg89R__TARnUL15rJYisog9Yc5waytY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

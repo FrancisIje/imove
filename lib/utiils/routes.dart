@@ -2,11 +2,15 @@ part of './utils.dart';
 
 final router = GoRouter(
   initialLocation: '/splash',
-  redirect: (context, state) {
-    // final isLoggedIn = AuthService.emailPassword().isUserLoggedIn;
-    // if (state.path != "/splash" && state.path != null && isLoggedIn == false) {
-    //   return "/login";
-    // }
+  redirect: (context, state) async {
+    final isLoggedIn = await AuthService.emailPassword().getUser().then(
+      (value) {
+        return value != null;
+      },
+    );
+    if (state.path != "/splash" && state.path != null && isLoggedIn == false) {
+      return "/login";
+    }
 
     return null;
   },
@@ -44,16 +48,29 @@ final router = GoRouter(
       builder: (context, state) => const InstantDelievryScreen(),
     ),
     GoRoute(
-      path: '/courier',
-      builder: (context, state) => const CourierScreen(),
+      path: '/courier/:type',
+      builder: (context, state) {
+        final screenType = state.pathParameters['type']!;
+        return CourierScreen(type: screenType);
+      },
     ),
     GoRoute(
-      path: '/add-details',
-      builder: (context, state) => const AddDetailsScreen(),
+      path: '/add-details/:type',
+      builder: (context, state) {
+        final type = state.pathParameters['type']!;
+        return AddDetailsScreen(
+          type: type,
+        );
+      },
     ),
     GoRoute(
-      path: '/confirm-details',
-      builder: (context, state) => const ConfirmDetailsScreen(),
+      path: '/confirm-details/:type',
+      builder: (context, state) {
+        final type = state.pathParameters['type']!;
+        return ConfirmDetailsScreen(
+          type: type,
+        );
+      },
     ),
     GoRoute(
       path: '/delivery-details',

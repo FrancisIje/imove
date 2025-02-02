@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:imove/utiils/utils.dart';
+import 'package:imove/view_models/schedule_viewmodel.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class CustomDateTimePicker extends StatefulWidget {
   const CustomDateTimePicker({super.key});
@@ -11,8 +14,6 @@ class CustomDateTimePicker extends StatefulWidget {
 }
 
 class CustomDateTimePickerState extends State<CustomDateTimePicker> {
-  DateTime? selectedDate;
-
   Future<void> _pickDateTime() async {
     DateTime? date = await showDatePicker(
       context: context,
@@ -33,42 +34,45 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
       },
     );
 
-    if (date != null) {
-      TimeOfDay? time = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now(),
-        builder: (context, child) {
-          return Theme(
-            data: ThemeData.light().copyWith(
-              primaryColor: Colors.purple,
-              colorScheme: const ColorScheme.light(primary: Colors.purple),
-            ),
-            child: child!,
-          );
-        },
-      );
+    // if (date != null) {
+    //   TimeOfDay? time = await showTimePicker(
+    //     context: context,
+    //     initialTime: TimeOfDay.now(),
+    //     builder: (context, child) {
+    //       return Theme(
+    //         data: ThemeData.light().copyWith(
+    //           primaryColor: Colors.purple,
+    //           colorScheme: const ColorScheme.light(primary: Colors.purple),
+    //         ),
+    //         child: child!,
+    //       );
+    //     },
+    //   );
 
-      if (time != null) {
-        setState(() {
-          selectedDate = DateTime(
-            date.year,
-            date.month,
-            date.day,
-            time.hour,
-            time.minute,
-          );
-        });
-      }
+    // if (time != null) {
+    //   setState(() {
+
+    //   });
+    // }
+    if (date != null) {
+      context.read<ScheduleDeliveryViewModel>().setDeliveryDate = DateTime(
+        date.year,
+        date.month,
+        date.day,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    DateTime? selectedDate =
+        Provider.of<ScheduleDeliveryViewModel>(context).deliveryDate;
+    print(selectedDate);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Date & Time', style: AppTypography.avenir().bodySmallM),
+        Text('Delivery Date', style: AppTypography.avenir().bodySmallM),
         Gap(8.h),
         GestureDetector(
           onTap: _pickDateTime,
@@ -82,7 +86,7 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
             child: Text(
                 selectedDate == null
                     ? 'Select Date & Time'
-                    : 'Selected: ${selectedDate.toString()}',
+                    : 'Selected: ${DateFormat.yMMMMEEEEd().format(selectedDate)}',
                 style: AppTypography.avenir()
                     .bodySmallSB
                     .copyWith(color: Colors.black45)),

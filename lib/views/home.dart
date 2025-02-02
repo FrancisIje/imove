@@ -32,39 +32,32 @@ class _HomeState extends State<Home> {
     ];
     return Scaffold(
       body: screens[viewModel.currentIndex],
-      bottomNavigationBar:
-          BottomNavigationBar(currentIndex: viewModel.currentIndex, items: [
-        BottomNavigationBarItem(
-            icon: GestureDetector(
-              onTap: () {
-                viewModel.setIndex(0);
-              },
-              child: const ImageIcon(
-                AssetImage("assets/icons/home.png"),
-              ),
-            ),
-            label: "Home"),
-        BottomNavigationBarItem(
-            icon: GestureDetector(
-              onTap: () {
-                viewModel.setIndex(1);
-              },
-              child: const ImageIcon(
-                AssetImage("assets/icons/calender.png"),
-              ),
-            ),
-            label: "History"),
-        BottomNavigationBarItem(
-            icon: GestureDetector(
-              onTap: () {
-                viewModel.setIndex(2);
-              },
-              child: const ImageIcon(
-                AssetImage("assets/icons/person.png"),
-              ),
-            ),
-            label: "Profile"),
-      ]),
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: viewModel.currentIndex,
+          onTap: (value) => viewModel.setIndex(value),
+          items: [
+            BottomNavigationBarItem(
+                icon: GestureDetector(
+                  child: const ImageIcon(
+                    AssetImage("assets/icons/home.png"),
+                  ),
+                ),
+                label: "Home"),
+            BottomNavigationBarItem(
+                icon: GestureDetector(
+                  child: const ImageIcon(
+                    AssetImage("assets/icons/calender.png"),
+                  ),
+                ),
+                label: "History"),
+            BottomNavigationBarItem(
+                icon: GestureDetector(
+                  child: const ImageIcon(
+                    AssetImage("assets/icons/person.png"),
+                  ),
+                ),
+                label: "Profile"),
+          ]),
     );
   }
 }
